@@ -91,3 +91,9 @@ ENV/
 
 # Ignore SQLite database
 *.sqlite3
+
+# venv
+.cp-barebone-movie-app
+
+# visual studio code
+.vscode

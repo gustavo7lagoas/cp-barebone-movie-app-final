@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from airtable import Airtable
+from decouple import config
 import os
 
 
-AT = Airtable(os.environ.get('AIRTABLE_MOVIESTABLE_BASE_ID'),
+AT = Airtable(config('AIRTABLE_MOVIESTABLE_BASE_ID'),
               'Movies',
-              api_key=os.environ.get('AIRTABLE_API_KEY'))
+              api_key=config('AIRTABLE_API_KEY'))
 
 # Create your views here.
 def home_page(request):
