@@ -1,16 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
 <html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU=" crossorigin="anonymous" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'movies/app.css' %}" />
+</head>
 <body>
-<h1>Hello World</h1>
+    <div class="wrapper">
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__menu">
+                <a href="/" class="nav__header">Clever Movies</a>
+                <div class="col-md-5 pull-right">
+                    <form action="" class="form-inline" name="Search">
+                        <div class="form-group">
+                            <input type="text" name="query" class="form-control" value="{{request.GET.query}}" />
+                            <input type="submit" class="btn btn-primary" value="Search" />
+                        </div>
+                    </form>
+                </div>
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-create">Create</button>
+            </div>
+        </div>
+    </nav>
+    <section class="result">
+        <div class="container">
+            <div class="movies">
+                {% for movie in search_result %}
+                    <div class="movies__item">
+                        <i class="movies__item-star fa fa-star hide"></i>
+                        <p class="movies__item-rating hide">{{ movie.fields.Rating}}/10</p>
+                        <img class="movies__item-image" src="{{movie.fields.Pictures.0.url}}" alt="{{movie.fields.Name}} movie picture" />
+                        <div class="movies__item-title">
+                            <p>{{movie.fields.Name}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 
-    <form action="" name="search">
-        <input type="text" name="query" value="{{request.GET.query}}" />
-        <input type="submit" value="Search" />
-    </form>
+    {% include "movies/create_modal.html" %}
 
-    {% for movie in search_result %}
-        <p>{{movie.fields.Name}}</p>
-        <p><img src="{{movie.fields.Pictures.0.url}}" alt="{{movie.fields.Name}} movie picture" /></p>
-    {% endfor %}
-
+    <!-- Javascripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{% static 'movies/app.js' %}"></script>
 </body>
 </html
