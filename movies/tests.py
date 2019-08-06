@@ -18,7 +18,8 @@ class HomeTest(TestCase):
         self.assertContains(self.response, '<form')
         self.assertContains(self.response, 'type="submit"')
         self.assertContains(self.response, '<img')
-        
+
+
 class CreateMovieTest(TestCase):
 
     def setUp(self):
@@ -46,7 +47,8 @@ class CreateMovieTest(TestCase):
         form = self.response.context['form']
         self.assertSequenceEqual(['name', 'url', 'rating', 'notes'], list(form.fields))
 
-class ViewMovieTest(TestCase):
+
+class MovieViewTest(TestCase):
 
     def setUp(self):
         self.response = self.client.get('/')
@@ -55,17 +57,26 @@ class ViewMovieTest(TestCase):
         self.assertContains(self.response, 'id="modal-view-')
 
 
-class MoviePostTest(TestCase):
+class MovieEditTest(TestCase):
 
     def setUp(self):
-        data = dict(
-            name = 'Fast & Furious',
-            url = 'http://www.filmposter-archiv.de/filmplakat/2001/fast-and-the-furious-the-3.jpg',
-            rating = '6',
-            notes = 'It is an OK start',
-        )
-        self.response = self.client.post('/create/', data)
+        self.response = self.client.get('/')
 
-    def test_post(self):
-        self.assertEqual(302, self.response.status_code)
+    def test_modals_html(self):
+        self.assertContains(self.response, 'id="modal-edit-')
+
+
+# class MoviePostTest(TestCase):
+
+#     def setUp(self):
+#         data = dict(
+#             name = 'Fast & Furious',
+#             url = 'http://www.filmposter-archiv.de/filmplakat/2001/fast-and-the-furious-the-3.jpg',
+#             rating = '6',
+#             notes = 'It is an OK start',
+#         )
+#         self.response = self.client.post('/create/', data)
+
+#     def test_post(self):
+#         self.assertEqual(302, self.response.status_code)
     
