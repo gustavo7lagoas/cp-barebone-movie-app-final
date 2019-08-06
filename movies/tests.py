@@ -26,7 +26,7 @@ class CreateMovieTest(TestCase):
 
     def test_html_modal(self):
         self.assertContains(self.response, '<form')
-        self.assertContains(self.response, 'modal')
+        self.assertContains(self.response, 'id="modal-create')
         self.assertContains(self.response, 'type="submit"', 2)
         self.assertContains(self.response, 'type="text"', 2)
         self.assertContains(self.response, 'type="url"', 1)
@@ -45,6 +45,15 @@ class CreateMovieTest(TestCase):
     def test_form_has_fields(self):
         form = self.response.context['form']
         self.assertSequenceEqual(['name', 'url', 'rating', 'notes'], list(form.fields))
+
+class ViewMovieTest(TestCase):
+
+    def setUp(self):
+        self.response = self.client.get('/')
+
+    def test_modals_html(self):
+        self.assertContains(self.response, 'id="modal-view-')
+
 
 class MoviePostTest(TestCase):
 

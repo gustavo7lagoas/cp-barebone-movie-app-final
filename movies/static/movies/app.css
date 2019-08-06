@@ -208,6 +208,10 @@ body::before {
     cursor: pointer;
 }
 
+.movies__item.full-width {
+    width: 100%;
+}
+
 .footer {
     background-color: #282A3A !important;
     padding: 1rem 0;
