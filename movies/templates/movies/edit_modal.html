@@ -6,26 +6,30 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>                
             </div>
             <div class="modal-body">
-                <form action="" method="post">
+                <form action="{% url 'edit' movie_id=movie.id %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-                        <input type="text" class="form-control" id="{{ form.name.id_for_label }}" placeholder="Enter Name" name="name" value="{{ movie.fields.Name }}">
+                        <label for="{{ movie.form.name.label }}">{{ movie.form.name.label }}</label>
+                        {{ movie.form.name.errors }}
+                        {{ movie.form.name }}
                     </div>
 
                     <div class="form-group">
-                        <label for="{{ form.url.id_for_label }}">{{ form.url.label }}</label>
-                        <input type="text" class="form-control" id="{{ form.url.id_for_label }}" placeholder="url" name="url" value="{{ movie.fields.Pictures.0.url }}">
+                        <label for="{{ form.url.id_for_label }}">{{ movie.form.url.label }}</label>
+                        {{ movie.form.url.errors }}
+                        {{ movie.form.url }}
                     </div>
 
                     <div class="form-group">
-                        <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
-                        <input type="number" class="form-control" id="{{ form.rating.id_for_label }}" placeholder="1-10" name="rating" value="{{ movie.fields.Rating }}">
+                        <label for="{{ form.rating.id_for_label }}">{{ movie.form.rating.label }}</label>
+                        {{ movie.form.rating.errors }}
+                        {{ movie.form.rating }}
                     </div>
 
                     <div class="form-group">
-                        <label for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
-                        <textarea class="form-control" id="{{ form.notes.id_for_label }}" placeholder="notes" name="notes">{{ movie.fields.Notes }}</textarea>
+                        <label for="{{ form.notes.id_for_label }}">{{ movie.form.notes.label }}</label>
+                        {{ movie.form.notes.errors }}
+                        {{ movie.form.notes }}
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>
